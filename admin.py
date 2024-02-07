@@ -18,6 +18,7 @@ passes = file['pass'].tolist()
 courses = read_csv("CoursesT.csv")
 courses_list = courses["Course"].tolist()
 code_list = courses["Code"].tolist()
+ch_list = courses["CH"].tolist()
 # Functions
 # Id Generator
 def idGenerator(arr):
@@ -232,34 +233,38 @@ def crsCodeFound(removed_code , code_list):
         return False
 # A course code is 3 letters
 def validCrsCode(new_code,code_list):
-    if len(new_code) > 3 or new_code in code_list:
+    if len(new_code) > 3 or new_code in code_list or not new_code.isalnum():
         raise ValueError("")
     else:
        return True
 # A course code is inavaliable in the courses table
 def validCrsName(new_course , courses_list):
-    if(new_course in courses_list):
+    if(new_course in courses_list) or not new_course.isalnum():
         raise ValueError("")
     else:
         return True
 # Add course to the courses table
-def addCrs(new_course,new_code):
+def addCrs(new_course,new_code,new_ch):
     # new_course = input("Add Course: ")
     # new_code = input("Add the Course's Code: ")
-    if validCrsCode(new_code,code_list):
-        code_list.append(new_code)
-    else:
+    if not validCrsCode(new_code,code_list):
         # print("Please Enter a Valid Code!!")
+        return
+    if not (new_ch <= 3 and new_ch >= 0):
+        print("Credit hours must be a number between 0-3")
+        # raise ValuError("")
         return
     if validCrsName(new_course , courses_list):
         courses_list.append(new_course)
-        dict = {'Course': courses_list, 'Code': code_list}
+        code_list.append(new_code)
+        ch_list.append(new_ch)
+        dict = {'Course': courses_list, 'Code': code_list,'CH': ch_list}
         df = DataFrame(dict)
         df.to_csv('CoursesT.csv',index=False)
     else:
         # print("the Course You are trying to input already exists")
         return
-    return courses_list, code_list,new_course,new_code
+    # return courses_list, code_list,new_course,new_code
 # Remove course from the courses table
 def removeCrsByCode(removed_code):
     # removed_code = input("Enter the code for the course you want to remove: ")
@@ -267,10 +272,11 @@ def removeCrsByCode(removed_code):
          indx_code = code_list.index(removed_code)
          code_list.pop(indx_code)
          courses_list.pop(indx_code)
-         dict = {'Course': courses_list, 'Code': code_list}
+         ch_list.pop(indx_code)
+         dict = {'Course': courses_list, 'Code': code_list,'CH': ch_list}
          df = DataFrame(dict)
          df.to_csv('CoursesT.csv',index=False)
     else:
         # print("Course not Found!!")
         return
-    return courses_list,code_list
+    # return courses_list,code_list,ch_list
