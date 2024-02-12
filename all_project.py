@@ -236,6 +236,7 @@ def validCrsName(new_course , courses_list):
     else:
         return True
 # Add course to the courses table
+# Takes the Course's Name, Code and Credit hours as Parameters
 def addCrs(new_course,new_code,new_ch):
     # new_course = input("Add Course: ")
     # new_code = input("Add the Course's Code: ")
@@ -257,7 +258,8 @@ def addCrs(new_course,new_code,new_ch):
         # print("the Course You are trying to input already exists")
         return
     # return courses_list, code_list,new_course,new_code
-# Remove course from the courses table
+# Remove course from the courses table using the Course's Code 
+# Takes the Courses code as an Parameters
 def removeCrsByCode(removed_code):
     # removed_code = input("Enter the code for the course you want to remove: ")
     if crsCodeFound(removed_code,code_list):
