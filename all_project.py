@@ -271,7 +271,7 @@ def removeCrsByCode(removed_code):
          df = DataFrame(dict)
          df.to_csv('CoursesT.csv',index=False)
     else:
-        # print("Course not Found!!")
+        print("Course not Found!!")
         return
     # return courses_list,code_list,ch_list
 ##############################################################################################################
@@ -528,7 +528,11 @@ while(True):
                     break
                 else:
                     print("Invalid choice please try again")
-            break    
+            break
+         elif(num1=='5'):
+             removed_code=input("Please enter the code of course that you want to delete it: ")
+             removeCrsByCode(removed_code)
+             break
          elif(num1=='7'):
              postStr=input("please enter new post that you want to publish it")
              addPost(postStr)
