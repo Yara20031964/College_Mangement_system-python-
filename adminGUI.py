@@ -158,9 +158,40 @@ avaliableCrssBox.grid(row=6, column=2)
 button = Button(addStudentFrame, text="Get Selected", command=getSelectedCrss)
 button.grid(row=6, column=3)
 
+
+# Edit Student
+# - Edit Menu's Bar
+editStdFrame = Frame(root)
+
+editStdBar = Frame(editStdFrame, height=30,
+                   highlightbackground="red", highlightthickness=2)
+
+gridFrame(editStdFrame)
+
+editStdBar.grid(row=1, column=0, sticky="n")
+editStdFeaturesFrame = Frame(editStdFrame)
+gridFrame(editStdFeaturesFrame)
+# editStdFeaturesFrame.grid(row=0, column=0, sticky="nsew")
+
+
+def onChgEditingOption(value):
+    print("selected Group: ", value)
+
+
+selectedEdit = tk.StringVar(editStdBar)
+editOptions = ["Group", "Level", "GPA", "Registered Courses"]
+selectedEdit.set("Not set")
+editsOptionMenu = OptionMenu(
+    editStdBar, selectedEdit, *editOptions, command=onChgEditingOption)
+editsOptionMenu.grid(row=1, column=2, sticky=tk.N)
+editStdBarLabel = Label(editStdBar, text="Edit: ")
+editStdBarLabel.grid(row=1, column=1, sticky=tk.N)
+# -- grid configures
+editStdFrame.grid_rowconfigure(0, weight=1)
+editStdFrame.grid_columnconfigure(0, weight=1)
+
 # Finally the first griding
 # gridFrame(adminLoginFrame)
-gridFrame(addStudentFrame)
 # Griding root window
 root.grid_rowconfigure(0, weight=10)
 root.grid_columnconfigure(0, weight=10)
