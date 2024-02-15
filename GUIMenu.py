@@ -66,9 +66,6 @@ def get_selected_items():
     print("Selected items:", selected_items)
 
 
-window = Tk()
-window.title("Multi-Select Box Example")
-
 options = ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5"]
 
 listbox = Listbox(window, selectmode=MULTIPLE)

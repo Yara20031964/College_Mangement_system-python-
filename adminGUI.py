@@ -2,6 +2,7 @@
 import tkinter as tk
 from tkinter import Tk, Label, Frame, Button
 from tkinter import OptionMenu, Listbox, END, Entry, NSEW
+import admin as am
 
 
 # Assigning root window
@@ -98,6 +99,29 @@ stdPassLabel = Label(addStudentFrame, text="Student Pass: ")
 stdPassLabel.grid(row=2, column=1)
 stdPassEntry = Entry(addStudentFrame, show="+")
 stdPassEntry.grid(row=2, column=2)
+
+# - Student GPA
+stdNewLabel = Label(addStudentFrame, text="Student GPA: ")
+stdNewLabel.grid(row=3, column=1)
+stdNewEntry = Entry(addStudentFrame)
+stdNewEntry.grid(row=3, column=2)
+
+# - Student level
+
+
+def onSelectNewLvl(value):
+    print("selected Level: ", value)
+
+
+selectedNewLvl = tk.StringVar(addStudentFrame)
+newLvlsArray = [1, 2, 3, 4, 5]
+selectedNewLvl.set("Not set")
+newLvlsOptionMenu = OptionMenu(
+    addStudentFrame, selectedNewLvl, *newLvlsArray, command=onSelectNewLvl)
+newLvlsOptionMenu.grid(row=4, column=2)
+newLvlLabel = Label(addStudentFrame, text="Level: ")
+newLvlLabel.grid(row=4, column=1)
+
 # - Student Group option menu
 
 
@@ -110,9 +134,29 @@ groupsArray = ["A", "B", "C"]
 selectedGroup.set("Not set")
 groupsOptionMenu = OptionMenu(
     addStudentFrame, selectedGroup, *groupsArray, command=onSelectGroup)
-groupsOptionMenu.grid(row=3, column=2)
+groupsOptionMenu.grid(row=5, column=2)
 groupLabel = Label(addStudentFrame, text="Group: ")
-groupLabel.grid(row=3, column=1)
+groupLabel.grid(row=5, column=1)
+
+
+# - Courses
+
+def getSelectedCrss():
+    selected_indices = avaliableCrssBox.curselection()
+    selected_items = [avaliableCrssBox.get(
+        index) for index in selected_indices]
+    print("Selected items:", selected_items)
+
+
+avaliableCrss = ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5"]
+
+avaliableCrssBox = Listbox(addStudentFrame, selectmode=tk.MULTIPLE)
+for option in avaliableCrss:
+    avaliableCrssBox.insert(tk.END, option)
+avaliableCrssBox.grid(row=6, column=2)
+
+button = Button(addStudentFrame, text="Get Selected", command=getSelectedCrss)
+button.grid(row=6, column=3)
 
 # Finally the first griding
 # gridFrame(adminLoginFrame)
