@@ -247,11 +247,6 @@ def addPost(postStr):
             'post': postsStrs}
     dataFrame = DataFrame(dict)
     dataFrame.to_csv('./news.csv', index=False)
-    global id
-    id =55
-global id
-print (id)
-
 
 
 addPost("WE HAVE FINISHED THE COOOOOOODDDDDEEE")
