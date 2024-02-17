@@ -13,7 +13,21 @@ control = pd.read_csv('CoursesT.csv')
 ID=0
 line=0
 
+def student_service():
+    # Hide the main page
+    main_page1.grid_forget()
+    login_panel.grid(row=0, column=0, padx=10, pady=10)
+    # Show page for choice 2
+    
+# def control_service():
+#     # Hide the main page
+#     main_page1.grid_forget()
+#     login_panel.grid(row=0, column=0, padx=10, pady=10)
+#     # Show page for choice 2  
+    
 def login():
+
+    root.title("Login Page")
     global ID
     ID = ID_entry.get()
 
@@ -193,7 +207,18 @@ def return_to_login():
 
 # Create main window
 root = tk.Tk()
-root.title("Login Page")
+root.title("WECOME")
+
+
+main_page1 = tk.Frame(root)
+main_page1_headline = tk.Label(main_page1, text="Welcome to service", font=("Arial", 20, "bold"), fg="blue")
+main_page1_headline.pack()
+
+student_service_button = tk.Button(main_page1, text="Register courses", command=student_service)
+student_service_button.pack()
+
+# control_service_button = tk.Button(main_page1, text="Edit courses", command=control_service)
+# control_service_button.pack()
 
 # Create labels, entry fields, and button
 login_panel = tk.Frame(root)
@@ -219,20 +244,16 @@ message_label.grid(row=4, column=0, columnspan=2)
 
 
 main_page = tk.Frame(root)
-main_headline = tk.Label(main_page, text="Welcome to Student's service", font=(
-    "Arial", 20, "bold"), fg="blue")
+main_headline = tk.Label(main_page, text="Welcome to Student's service", font=("Arial", 20, "bold"), fg="blue")
 main_headline.pack()
 
-register_courses_button = tk.Button(
-    main_page, text="Register courses", command=register_courses)
+register_courses_button = tk.Button(main_page, text="Register courses", command=register_courses)
 register_courses_button.pack()
 
-edit_course_button = tk.Button(
-    main_page, text="Edit courses", command=edit_course)
+edit_course_button = tk.Button(main_page, text="Edit courses", command=edit_course)
 edit_course_button.pack()
 
-choose_group_button = tk.Button(
-    main_page, text="Choose the group", command=choose_group)
+choose_group_button = tk.Button( main_page, text="Choose the group", command=choose_group)
 choose_group_button.pack()
 
 See_news_button = tk.Button(main_page, text="See news", command=See_news)
@@ -309,7 +330,8 @@ exit3_button = tk.Button(See_news_page, text="Exit", command=return_to_login)
 exit3_button.pack(pady=10)
 # See_news()
 
-login_panel.grid(row=0, column=0, padx=10, pady=10)
+# login_panel.grid(row=0, column=0, padx=10, pady=10)
+main_page1.grid(row=0, column=0, padx=10, pady=10)
 root.grid_rowconfigure(0, weight=10)
 root.grid_columnconfigure(0, weight=10)
 # Run the main event loop
