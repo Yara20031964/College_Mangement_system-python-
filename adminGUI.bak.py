@@ -1,6 +1,6 @@
 # from tkinter import *
 import tkinter as tk
-from tkinter import Tk, Label, Frame, Button, ttk
+from tkinter import Tk, Label, Frame, Button
 from tkinter import OptionMenu, Listbox, END, Entry, NSEW
 import admin as am
 
@@ -10,13 +10,8 @@ root = Tk()
 root.geometry("800x500")
 page = "College system"
 
-style = ttk.Style(root)
-style.theme_use('clam')
-root.option_add("*font", "sans 12")
 
 # Fast griding the frames
-
-
 def gridFrame(thisFrame):
     thisFrame.grid(row=0, column=0, padx=10, pady=10)
     # if thisFrame != ".!frame5":
@@ -34,8 +29,8 @@ def backToMenu():
 
 
 def backToMenuFromEdit():
-    forgetFrameWidgets(editStdBar)
     gridFrame(menuFrame)
+    destroyFrameWidgets(editStdBar)
     editStdBar.destroy()
 
 
@@ -260,7 +255,7 @@ def onAddStdBtn():
 addStdbutton = Button(
     addStudentFrame, text="Get Selected", command=onAddStdBtn)
 addStdbutton.grid(row=6, column=3)
-addStdCaseLabel = Label(addStudentFrame, text="")
+addStdCaseLabel = Label(addStudentFrame, text="Level: ")
 addStdCaseLabel.grid(row=7, column=1, columnspan=2)
 
 # Remove Student
@@ -324,9 +319,10 @@ def onUseStdId():
     else:
         global stdIdToEdit
         stdIdToEdit = int(getIdEntry.get())
-        forgetFrameWidgets(getIdFrame)
         gridFrame(editStdFrame)
         gridBar()
+        # gridFrame(editStdBar)
+        destroyFrameWidgets(getIdFrame)
 
 
 getIdFrame = Frame(root)

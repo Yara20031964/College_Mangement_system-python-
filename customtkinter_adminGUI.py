@@ -1,19 +1,18 @@
+import customtkinter as ctk
+from customtkinter import CENTER, E, END, EW, MULTIPLE, N, NS, NSEW, S, SE, W
 # from tkinter import *
 import tkinter as tk
-from tkinter import Tk, Label, Frame, Button, ttk
-from tkinter import OptionMenu, Listbox, END, Entry, NSEW
+from tkinter import Tk, Button
+from tkinter import OptionMenu, Listbox, END, NSEW
 import admin as am
 
 
 # Assigning root window
-root = Tk()
+root = ctk.CTk()
 root.geometry("800x500")
 page = "College system"
 
-style = ttk.Style(root)
-style.theme_use('clam')
-root.option_add("*font", "sans 12")
-
+ctk.set_appearance_mode("dark")
 # Fast griding the frames
 
 
@@ -34,8 +33,8 @@ def backToMenu():
 
 
 def backToMenuFromEdit():
-    forgetFrameWidgets(editStdBar)
     gridFrame(menuFrame)
+    destroyFrameWidgets(editStdBar)
     editStdBar.destroy()
 
 
@@ -51,32 +50,32 @@ def onLogin():
         adminLoginFrame.grid_forget()
         gridFrame(menuFrame)
     else:
-        loginLabel.config(text="Wrong username or password", fg="red")
-        usernameEntry.config(border=1, fg="red")
-        passwordEntry.config(border=1, fg="red")
+        loginLabel.configure(text="Wrong username or password", fg_color="red")
+        usernameEntry.configure(border=1, fg_color="red")
+        passwordEntry.configure(border=1, fg_color="red")
 
 
 # Admin login menu
-adminLoginFrame = Frame(root)
+adminLoginFrame = ctk.CTkFrame(root)
 # - Labels
-usernameLabel = Label(adminLoginFrame, text="Username: ")
+usernameLabel = ctk.CTkLabel(adminLoginFrame, text="Username: ")
 usernameLabel.grid(row=1, column=1)
-passwordLabel = Label(adminLoginFrame, text="Password: ")
+passwordLabel = ctk.CTkLabel(adminLoginFrame, text="Password: ")
 passwordLabel.grid(row=2, column=1)
 # - Entries
-usernameEntry = Entry(adminLoginFrame)
+usernameEntry = ctk.CTkEntry(adminLoginFrame)
 usernameEntry.grid(row=1, column=2)
-passwordEntry = Entry(adminLoginFrame, show="+")
+passwordEntry = ctk.CTkEntry(adminLoginFrame, show="+")
 passwordEntry.grid(row=2, column=2)
 # - Label of username and password
-loginLabel = Label(adminLoginFrame, text="")
+loginLabel = ctk.CTkLabel(adminLoginFrame, text="")
 loginLabel.grid(row=3, columnspan=3)
 # - Login Button
-loginBtn = Button(adminLoginFrame, text="Login", command=onLogin)
+loginBtn = ctk.CTkButton(adminLoginFrame, text="Login", command=onLogin)
 loginBtn.grid(row=4, columnspan=3)
 # Main Menu
 
-menuFrame = Frame(root)
+menuFrame = ctk.CTkFrame(root)
 
 gridFrame(menuFrame)
 # - Add Student
@@ -85,12 +84,13 @@ gridFrame(menuFrame)
 def goToAddStd():
     gridFrame(addStudentFrame)
     menuFrame.grid_forget()
-    backToMenuBtn = Button(root, text="Back To Menu", command=backToMenu)
+    backToMenuBtn = ctk.CTkButton(
+        root, text="Back To Menu", command=backToMenu)
     backToMenuBtn.grid(row=0, column=0, sticky=tk.N+tk.W)
 
 
-addStdButton = Button(menuFrame, width=13,
-                      text="Add New Student", command=goToAddStd)
+addStdButton = ctk.CTkButton(menuFrame, width=13,
+                             text="Add New Student", command=goToAddStd)
 addStdButton.grid(row=1, column=1, padx=4, pady=4)
 # - Remove Student
 
@@ -98,12 +98,13 @@ addStdButton.grid(row=1, column=1, padx=4, pady=4)
 def goToRmStd():
     gridFrame(rmStudentFrame)
     menuFrame.grid_forget()
-    backToMenuBtn = Button(root, text="Back To Menu", command=backToMenu)
+    backToMenuBtn = ctk.CTkButton(
+        root, text="Back To Menu", command=backToMenu)
     backToMenuBtn.grid(row=0, column=0, sticky=tk.N+tk.W)
 
 
-remStdButton = Button(menuFrame, width=13,
-                      command=goToRmStd, text="Remove Student")
+remStdButton = ctk.CTkButton(menuFrame, width=13,
+                             command=goToRmStd, text="Remove Student")
 remStdButton.grid(row=1, column=2, padx=4, pady=4)
 # - Edit Student
 
@@ -111,12 +112,13 @@ remStdButton.grid(row=1, column=2, padx=4, pady=4)
 def goToEditStd():
     gridFrame(getIdFrame)
     menuFrame.grid_forget()
-    backToMenuBtn = Button(root, text="Back To Menu", command=backToMenu)
+    backToMenuBtn = ctk.CTkButton(
+        root, text="Back To Menu", command=backToMenu)
     backToMenuBtn.grid(row=0, column=0, sticky=tk.N+tk.W)
 
 
-editStdButton = Button(menuFrame, width=13,
-                       text="Edit Student", command=goToEditStd)
+editStdButton = ctk.CTkButton(menuFrame, width=13,
+                              text="Edit Student", command=goToEditStd)
 editStdButton.grid(row=2, column=1, padx=4, pady=4)
 # - Get Student info
 
@@ -124,12 +126,13 @@ editStdButton.grid(row=2, column=1, padx=4, pady=4)
 def goToGetStdInfo():
     gridFrame(getStudentInfoFrame)
     menuFrame.grid_forget()
-    backToMenuBtn = Button(root, text="Back To Menu", command=backToMenu)
+    backToMenuBtn = ctk.CTkButton(
+        root, text="Back To Menu", command=backToMenu)
     backToMenuBtn.grid(row=0, column=0, sticky=tk.N+tk.W)
 
 
-getStdButton = Button(menuFrame, width=13,
-                      text="Get Student's Info", command=goToGetStdInfo)
+getStdButton = ctk.CTkButton(menuFrame, width=13,
+                             text="Get Student's Info", command=goToGetStdInfo)
 getStdButton.grid(row=2, column=2, padx=4, pady=4)
 # - Add Course
 
@@ -137,12 +140,13 @@ getStdButton.grid(row=2, column=2, padx=4, pady=4)
 def goToAddCourse():
     gridFrame(addCourseFrame)
     menuFrame.grid_forget()
-    backToMenuBtn = Button(root, text="Back To Menu", command=backToMenu)
+    backToMenuBtn = ctk.CTkButton(
+        root, text="Back To Menu", command=backToMenu)
     backToMenuBtn.grid(row=0, column=0, sticky=tk.N+tk.W)
 
 
-addCrsButton = Button(menuFrame, width=13,
-                      text="Add New Coruse", command=goToAddCourse)
+addCrsButton = ctk.CTkButton(menuFrame, width=13,
+                             text="Add New Coruse", command=goToAddCourse)
 addCrsButton.grid(row=3, column=1, padx=4, pady=4)
 # - Remove Course
 
@@ -150,12 +154,13 @@ addCrsButton.grid(row=3, column=1, padx=4, pady=4)
 def goToRmCourse():
     gridFrame(rmCourseFrame)
     menuFrame.grid_forget()
-    backToMenuBtn = Button(root, text="Back To Menu", command=backToMenu)
+    backToMenuBtn = ctk.CTkButton(
+        root, text="Back To Menu", command=backToMenu)
     backToMenuBtn.grid(row=0, column=0, sticky=tk.N+tk.W)
 
 
-remCrsButton = Button(menuFrame, width=13,
-                      text="Remove Course", command=goToRmCourse)
+remCrsButton = ctk.CTkButton(menuFrame, width=13,
+                             text="Remove Course", command=goToRmCourse)
 remCrsButton.grid(row=3, column=2, padx=4, pady=4)
 # - Add Post
 
@@ -163,30 +168,31 @@ remCrsButton.grid(row=3, column=2, padx=4, pady=4)
 def goToAddPost():
     gridFrame(addPostFrame)
     menuFrame.grid_forget()
-    backToMenuBtn = Button(root, text="Back To Menu", command=backToMenu)
+    backToMenuBtn = ctk.CTkButton(
+        root, text="Back To Menu", command=backToMenu)
     backToMenuBtn.grid(row=0, column=0, sticky=tk.N+tk.W)
 
 
-addPostButton = Button(menuFrame, text="Add Post", command=goToAddPost)
+addPostButton = ctk.CTkButton(menuFrame, text="Add Post", command=goToAddPost)
 addPostButton.grid(row=4, columnspan=3, padx=4, pady=4)
 # Add Student Frame
-addStudentFrame = Frame(root)
+addStudentFrame = ctk.CTkFrame(root)
 
 # - Student name text box
-stdNameLabel = Label(addStudentFrame, text="Student Name: ")
+stdNameLabel = ctk.CTkLabel(addStudentFrame, text="Student Name: ")
 stdNameLabel.grid(row=1, column=1)
-stdNameEntry = Entry(addStudentFrame)
+stdNameEntry = ctk.CTkEntry(addStudentFrame)
 stdNameEntry.grid(row=1, column=2)
 # - Student password text box
-stdPassLabel = Label(addStudentFrame, text="Student Pass: ")
+stdPassLabel = ctk.CTkLabel(addStudentFrame, text="Student Pass: ")
 stdPassLabel.grid(row=2, column=1)
-stdPassEntry = Entry(addStudentFrame, show="+")
+stdPassEntry = ctk.CTkEntry(addStudentFrame, show="+")
 stdPassEntry.grid(row=2, column=2)
 
 # - Student GPA
-stdGpaLabel = Label(addStudentFrame, text="Student GPA: ")
+stdGpaLabel = ctk.CTkLabel(addStudentFrame, text="Student GPA: ")
 stdGpaLabel.grid(row=3, column=1)
-stdGpaEntry = Entry(addStudentFrame)
+stdGpaEntry = ctk.CTkEntry(addStudentFrame)
 stdGpaEntry.grid(row=3, column=2)
 
 # - Student level
@@ -202,7 +208,7 @@ selectedLvl.set("Not set")
 newLvlsOptionMenu = OptionMenu(
     addStudentFrame, selectedLvl, *newLvlsArray, command=onSelectLvl)
 newLvlsOptionMenu.grid(row=4, column=2)
-newLvlLabel = Label(addStudentFrame, text="Level: ")
+newLvlLabel = ctk.CTkLabel(addStudentFrame, text="Level: ")
 newLvlLabel.grid(row=4, column=1)
 
 # - Student Group option menu
@@ -218,7 +224,7 @@ selectedGroup.set("Not set")
 groupsOptionMenu = OptionMenu(
     addStudentFrame, selectedGroup, *groupsArray, command=onSelectGroup)
 groupsOptionMenu.grid(row=5, column=2)
-groupLabel = Label(addStudentFrame, text="Group: ")
+groupLabel = ctk.CTkLabel(addStudentFrame, text="Group: ")
 groupLabel.grid(row=5, column=1)
 
 
@@ -242,15 +248,15 @@ avaliableCrssBox.grid(row=6, column=2)
 
 def onAddStdBtn():
     if not stdNameEntry.get().isalpha():
-        addStdCaseLabel.config(text="Please Add a valid student's name")
+        addStdCaseLabel.configure(text="Please Add a valid student's name")
     elif not stdPassEntry.get().isalnum():
-        addStdCaseLabel.config(
+        addStdCaseLabel.configure(
             text="Please Add a valid student's password ([a-zA-Z0-9])")
     elif not am.validGpaBool(stdGpaEntry.get()):
-        addStdCaseLabel.config(
+        addStdCaseLabel.configure(
             text="Please Add a valid student's GPA decimal 1.0-4.0")
     elif len(getSelectedCrss()) > 7 or len(getSelectedCrss()) < 3:
-        addStdCaseLabel.config(
+        addStdCaseLabel.configure(
             text="Please Add 6 courses as a maximum and 3 as a minimum")
     else:
         am.addStd(stdNameEntry.get(), ':'.join(getSelectedCrss()), float(stdGpaEntry.get(
@@ -260,52 +266,52 @@ def onAddStdBtn():
 addStdbutton = Button(
     addStudentFrame, text="Get Selected", command=onAddStdBtn)
 addStdbutton.grid(row=6, column=3)
-addStdCaseLabel = Label(addStudentFrame, text="")
+addStdCaseLabel = ctk.CTkLabel(addStudentFrame, text="Level: ")
 addStdCaseLabel.grid(row=7, column=1, columnspan=2)
 
 # Remove Student
-rmStudentFrame = Frame(root)
+rmStudentFrame = ctk.CTkFrame(root)
 
 
 def onRmStudent():
     if int(rmStudentEntry.get()) not in am.ids:
-        rmStudentCaseLabel.config(text="Invalid Id", fg="red")
+        rmStudentCaseLabel.configure(text="Invalid Id", fg_color="red")
     else:
-        rmStudentCaseLabel.config(text="Removed", fg="green")
+        rmStudentCaseLabel.configure(text="Removed", fg_color="green")
         am.removeStd(int(rmStudentEntry.get()))
 
 
-rmStudentEntry = Entry(rmStudentFrame, font=("monospace", 10))
+rmStudentEntry = ctk.CTkEntry(rmStudentFrame, font=("monospace", 10))
 rmStudentEntry.grid(row=0, column=1)
-rmStudentLabel = Label(rmStudentFrame, font=(
+rmStudentLabel = ctk.CTkLabel(rmStudentFrame, font=(
     "monospace", 10), text="Student's Id: ")
 rmStudentLabel.grid(row=0, column=0)
 rmStudentBtn = Button(
     rmStudentFrame, text="Remove Student", command=onRmStudent)
 rmStudentBtn.grid(row=1, column=0, columnspan=2)
-rmStudentCaseLabel = Label(rmStudentFrame, font=("monospace", 10))
+rmStudentCaseLabel = ctk.CTkLabel(rmStudentFrame, font=("monospace", 10))
 rmStudentCaseLabel.grid(row=2, column=0, columnspan=2)
 
 
 # Get all information about student
-getStudentInfoFrame = Frame(root)
+getStudentInfoFrame = ctk.CTkFrame(root)
 
 
 def onGetInfo():
     if int(getStudentInfoEntry.get()) in am.ids:
         stdId = int(getStudentInfoEntry.get())
         txt = f"Name: {am.getStd(stdId,'n')}\nCourses Enrolled:{am.getStd(stdId,'c')}\nGPA: {am.getStd(stdId,'g')}\nGroup: {am.getStd(stdId,'r')}\nLevel: {am.getStd(stdId,'l')}\nPassword: {am.getStd(stdId,'p')}"
-        getStudentInfoLabel.config(text=txt)
+        getStudentInfoLabel.configure(text=txt)
     else:
-        getStudentInfoLabel.config(text="Invalid Id", fg="red")
+        getStudentInfoLabel.configure(text="Invalid Id", fg_color="red")
 
 
-getStudentInfoEntry = Entry(getStudentInfoFrame, font=("monospace", 14))
+getStudentInfoEntry = ctk.CTkEntry(getStudentInfoFrame, font=("monospace", 14))
 getStudentInfoEntry.grid(row=0, column=0)
 getStudentInfoBtn = Button(
     getStudentInfoFrame, command=onGetInfo, text="Get Information", font=("monospace", 12))
 getStudentInfoBtn.grid(row=0, column=1)
-getStudentInfoLabel = Label(getStudentInfoFrame, font=("monospace", 14))
+getStudentInfoLabel = ctk.CTkLabel(getStudentInfoFrame, font=("monospace", 14))
 getStudentInfoLabel.grid(row=1, column=0, rowspan=6)
 
 
@@ -319,35 +325,34 @@ def gridBar():
 
 def onUseStdId():
     if int(getIdEntry.get()) not in am.ids:
-        getIdErrorLabel.config(text="Id doen's exist")
+        getIdErrorLabel.configure(text="Id doen's exist")
         getIdErrorLabel.grid(row=1, column=0)
     else:
         global stdIdToEdit
         stdIdToEdit = int(getIdEntry.get())
-        forgetFrameWidgets(getIdFrame)
         gridFrame(editStdFrame)
         gridBar()
+        forgetFrameWidgets(getIdFrame)
 
 
-getIdFrame = Frame(root)
-getIdEntry = Entry(getIdFrame)
+getIdFrame = ctk.CTkFrame(root)
+getIdEntry = ctk.CTkEntry(getIdFrame)
 getIdEntry.grid(row=0, column=1, padx=10)
-getIdLabel = Label(getIdFrame, text="Student's ID:")
+getIdLabel = ctk.CTkLabel(getIdFrame, text="Student's ID:")
 getIdLabel.grid(row=0, column=0)
-getIdBtn = Button(getIdFrame, text="Edit", command=onUseStdId)
+getIdBtn = ctk.CTkButton(getIdFrame, text="Edit", command=onUseStdId)
 getIdBtn.grid(row=1, column=1, columnspan=2)
-getIdErrorLabel = Label(getIdFrame, text="", fg="red")
+getIdErrorLabel = ctk.CTkLabel(getIdFrame, text="", fg_color="red")
 
 
-editStdFrame = Frame(root)
+editStdFrame = ctk.CTkFrame(root)
 
-editStdBar = Frame(root, height=30,
-                   highlightbackground="red", highlightthickness=2)
+editStdBar = ctk.CTkFrame(root, height=30)
 
 
 # editStdBar.grid(row=0, column=0, sticky=tk.N)
 
-editStdContentFrame = Frame(editStdFrame)
+editStdContentFrame = ctk.CTkFrame(editStdFrame)
 editStdContentFrame.grid(row=1, column=0)
 
 
@@ -372,10 +377,11 @@ def onChgEditingOption(value):
         def onChgGroupBtn():
             if selectedChgGroup.get() in "ABC":
                 am.editStd(stdIdToEdit, 'r', selectedChgGroup.get())
-                groupChgCaseLabel.config(
+                groupChgCaseLabel.configure(
                     fg="green", text="Successfully Changed")
             else:
-                groupChgCaseLabel.config(fg="red", text="Enter a Valid Group")
+                groupChgCaseLabel.configure(
+                    fg="red", text="Enter a Valid Group")
 
         def onChgGroup(value):
             print("selected Group: ", value)
@@ -387,12 +393,12 @@ def onChgEditingOption(value):
             editStdContentFrame, selectedChgGroup,
             *groupsArray, command=onChgGroup)
         groupsChgOptionMenu.grid(row=1, column=2)
-        groupChgLabel = Label(editStdContentFrame, text="New Group: ")
+        groupChgLabel = ctk.CTkLabel(editStdContentFrame, text="New Group: ")
         groupChgLabel.grid(row=1, column=1)
-        groupChgBtn = Button(editStdContentFrame,
-                             text="Change", command=onChgGroupBtn)
+        groupChgBtn = ctk.CTkButton(editStdContentFrame,
+                                    text="Change", command=onChgGroupBtn)
         groupChgBtn.grid(row=2, columnspan=2, column=1)
-        groupChgCaseLabel = Label(editStdContentFrame, text="")
+        groupChgCaseLabel = ctk.CTkLabel(editStdContentFrame, text="")
         groupChgCaseLabel.grid(row=3, column=1, columnspan=2)
 
     elif value == "Level":
@@ -403,10 +409,11 @@ def onChgEditingOption(value):
         def onChgLevelBtn():
             if selectedChgLevel.get() in "12345":
                 am.editStd(stdIdToEdit, 'l', selectedChgLevel.get())
-                levelChgCaseLabel.config(
+                levelChgCaseLabel.configure(
                     fg="green", text="Successfully Changed")
             else:
-                levelChgCaseLabel.config(fg="red", text="Enter a Valid Group")
+                levelChgCaseLabel.configure(
+                    fg="red", text="Enter a Valid Group")
 
         def onChgLevel(value):
             print("selected Group: ", value)
@@ -418,12 +425,12 @@ def onChgEditingOption(value):
             editStdContentFrame, selectedChgLevel,
             *levelsArray, command=onChgLevel)
         levelChgOptionMenu.grid(row=1, column=2)
-        levelChgLabel = Label(editStdContentFrame, text="New Level: ")
+        levelChgLabel = ctk.CTkLabel(editStdContentFrame, text="New Level: ")
         levelChgLabel.grid(row=1, column=1)
-        levelChgBtn = Button(editStdContentFrame,
-                             text="Change", command=onChgLevelBtn)
+        levelChgBtn = ctk.CTkButton(editStdContentFrame,
+                                    text="Change", command=onChgLevelBtn)
         levelChgBtn.grid(row=2, columnspan=2, column=1)
-        levelChgCaseLabel = Label(editStdContentFrame, text="")
+        levelChgCaseLabel = ctk.CTkLabel(editStdContentFrame, text="")
         levelChgCaseLabel.grid(row=3, column=1, columnspan=2)
     elif value == "GPA":
         # Forgetting old editing option
@@ -434,22 +441,23 @@ def onChgEditingOption(value):
             # if stdNewEntry.get().isdecimal():
             if am.validGpaBool(stdNewEntry.get()):
                 am.editStd(stdIdToEdit, 'g', stdNewEntry.get())
-                gpaChgCaseLabel.config(
+                gpaChgCaseLabel.configure(
                     fg="green", text="Successfully Changed")
             else:
-                gpaChgCaseLabel.config(
+                gpaChgCaseLabel.configure(
                     fg="red", text="Enter a Decimal Value [0-4]")
             # else:
-            #     gpaChgCaseLabel.config(
+            #     gpaChgCaseLabel.configure(
             #         fg="red", text="Enter a Decimal Value")
-        stdNewLabel = Label(editStdContentFrame, text="Student New GPA: ")
+        stdNewLabel = ctk.CTkLabel(
+            editStdContentFrame, text="Student New GPA: ")
         stdNewLabel.grid(row=1, column=1)
-        stdNewEntry = Entry(editStdContentFrame)
+        stdNewEntry = ctk.CTkEntry(editStdContentFrame)
         stdNewEntry.grid(row=1, column=2)
-        gpaChgBtn = Button(editStdContentFrame,
-                           text="Change", command=onChgGpaBtn)
+        gpaChgBtn = ctk.CTkButton(editStdContentFrame,
+                                  text="Change", command=onChgGpaBtn)
         gpaChgBtn.grid(row=2, columnspan=2, column=1)
-        gpaChgCaseLabel = Label(editStdContentFrame, text="")
+        gpaChgCaseLabel = ctk.CTkLabel(editStdContentFrame, text="")
         gpaChgCaseLabel.grid(row=3, column=1, columnspan=2)
     elif value == "Registered Courses":
         # Destroy old widgets
@@ -471,11 +479,11 @@ def onChgEditingOption(value):
         for option in avaliableNewCrss:
             avaliableNewCrssBox.insert(tk.END, option)
         avaliableNewCrssBox.grid(row=1, column=2, padx=10)
-        editCoursesCaseLabel = Label(
+        editCoursesCaseLabel = ctk.CTkLabel(
             editStdContentFrame, text="", height=3)
         editCoursesCaseLabel.grid(row=3, column=1, columnspan=2, padx=10)
-        addCoursesToStdBtn = Button(editStdContentFrame, text="Register Courses",
-                                    command=getNewSelectedCrss)
+        addCoursesToStdBtn = ctk.CTkButton(editStdContentFrame, text="Register Courses",
+                                           command=getNewSelectedCrss)
         addCoursesToStdBtn.grid(row=2, column=2, padx=10)
         # Remove courses from student
 
@@ -492,11 +500,11 @@ def onChgEditingOption(value):
         for option in stdCourses:
             stdCoursesBox.insert(tk.END, option)
         stdCoursesBox.grid(row=1, column=3, padx=10)
-        rmStdCoursesCaseLabel = Label(
+        rmStdCoursesCaseLabel = ctk.CTkLabel(
             editStdContentFrame, text="", height=3)
         rmStdCoursesCaseLabel.grid(row=3, column=2, padx=10, columnspan=2)
-        rmCoursesToStdBtn = Button(editStdContentFrame, text="Unregister Courses",
-                                   command=onRmStdCourses, padx=10)
+        rmCoursesToStdBtn = ctk.CTkButton(editStdContentFrame, text="Unregister Courses",
+                                          command=onRmStdCourses, padx=10)
         rmCoursesToStdBtn.grid(row=2, column=3, padx=10)
 
 
@@ -507,16 +515,17 @@ selectedEdit.set("Not set")
 editsOptionMenu = OptionMenu(
     editStdBar, selectedEdit, *editOptions, command=onChgEditingOption)
 editsOptionMenu.grid(row=0, column=2)
-editStdBarLabel = Label(editStdBar, text="Edit Student's:  ")
+editStdBarLabel = ctk.CTkLabel(editStdBar, text="Edit Student's:  ")
 editStdBarLabel.grid(row=0, column=1)
 
 # Finally the first griding
 # Add post frame
-addPostFrame = Frame(root)
-addPostLabel = Label(addPostFrame, font=("monospace", 14), text="Add Post: ")
+addPostFrame = ctk.CTkFrame(root)
+addPostLabel = ctk.CTkLabel(addPostFrame, font=(
+    "monospace", 14), text="Add Post: ")
 addPostLabel.grid(row=1, column=1)
-addPostEntry = tk.Text(addPostFrame, padx=20, height=10,
-                       width=40, font=("monospace", 14))
+addPostEntry = ctk.CTkTextbox(addPostFrame, padx=20, height=10,
+                              width=40, font=("monospace", 14))
 addPostEntry.grid(row=1, column=2)
 
 
@@ -529,8 +538,8 @@ def getData():
     # print(type(addPostEntry.get("1.0", tk.END)))
 
 
-btn = Button(addPostFrame, text="Post", command=getData,
-             height=2, width=10, padx=20)
+btn = ctk.CTkButton(addPostFrame, text="Post", command=getData,
+                    height=2, width=10)
 btn.grid(row=1, column=3)
 
 
@@ -538,58 +547,58 @@ def onClickAddCourseButton():
     newCourseName = courseNameEntry.get()
     newCourseID = courseIdEntry.get()
     if not am.validCrsCodeBool(newCourseID, am.code_list) or not am.validCrsNameBool(newCourseName, am.courses_list):
-        addCourseCaseLabel.config(
+        addCourseCaseLabel.configure(
             fg="red", text="Please add a valid course name and code")
     else:
         am.addCrs(newCourseName, newCourseID, 1)
-        addCourseCaseLabel.config(fg="green", text="Course Added")
+        addCourseCaseLabel.configure(fg="green", text="Course Added")
 
 
 # Frame for adding a New Course
-addCourseFrame = Frame(root)
-courseNamelabel = Label(
+addCourseFrame = ctk.CTkFrame(root)
+courseNamelabel = ctk.CTkLabel(
     addCourseFrame, text="Course Name:", font=("monospace", 12))
 courseNamelabel.grid(row=0, column=0)
-courseNameEntry = tk.Entry(addCourseFrame)
+courseNameEntry = ctk.CTkEntry(addCourseFrame)
 courseNameEntry.grid(row=0, column=1)
-courseIDlabel = Label(addCourseFrame, text="Course ID:",
-                      font=("monospace", 12))
+courseIDlabel = ctk.CTkLabel(addCourseFrame, text="Course ID:",
+                             font=("monospace", 12))
 courseIDlabel.grid(row=1, column=0, pady=10)
-courseIdEntry = tk.Entry(addCourseFrame)
+courseIdEntry = ctk.CTkEntry(addCourseFrame)
 courseIdEntry.grid(row=1, column=1, pady=10)
-addCourseButton = Button(addCourseFrame, width=13,
-                         text="Add", command=onClickAddCourseButton)
+addCourseButton = ctk.CTkButton(addCourseFrame, width=13,
+                                text="Add", command=onClickAddCourseButton)
 addCourseButton.grid(row=3, column=0, columnspan=2, pady=10)
 
-addCourseCaseLabel = Label(addCourseFrame, text="",
-                           font=("monospace", 12))
+addCourseCaseLabel = ctk.CTkLabel(addCourseFrame, text="",
+                                  font=("monospace", 12))
 addCourseCaseLabel.grid(row=4, column=0, pady=10, columnspan=2)
 
 
 def onClickRemoveCourseButton():
     courseRemoved = selectedCourse.get()
     if courseRemoved == "Unassigned":
-        rmCourseCaseLabel.config(
+        rmCourseCaseLabel.configure(
             fg="red", text="Please choose a course to remove")
     else:
         am.removeCrsByCode(am.crsCodeByName(courseRemoved))
-        rmCourseCaseLabel.config(fg="green", text="Course Removed")
+        rmCourseCaseLabel.configure(fg="green", text="Course Removed")
 
 
 # Frame for Removing a Course
 
 
-rmCourseFrame = Frame(root)
+rmCourseFrame = ctk.CTkFrame(root)
 coursesList = am.courses_list
 selectedCourse = tk.StringVar(rmCourseFrame)
 selectedCourse.set("Unassigned")
 rmCoursesOptionMenu = OptionMenu(rmCourseFrame, selectedCourse, *coursesList)
 rmCoursesOptionMenu.grid(row=0, column=0, )
-rmCourseButton = Button(rmCourseFrame, width=13,
-                        text="Remove", command=onClickRemoveCourseButton)
+rmCourseButton = ctk.CTkButton(rmCourseFrame, width=13,
+                               text="Remove", command=onClickRemoveCourseButton)
 rmCourseButton.grid(row=0, column=1, columnspan=2, padx=10)
-rmCourseCaseLabel = Label(rmCourseFrame, text="",
-                          font=("monospace", 12))
+rmCourseCaseLabel = ctk.CTkLabel(rmCourseFrame, text="",
+                                 font=("monospace", 12))
 rmCourseCaseLabel.grid(row=4, column=0, pady=10, columnspan=2)
 
 

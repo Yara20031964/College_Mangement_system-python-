@@ -1,4 +1,5 @@
 from pandas import read_csv, DataFrame
+import csv
 from datetime import datetime
 # id,name,courses,GPA,Group,level,pass
 file = read_csv('./studentsT.csv')
@@ -52,10 +53,24 @@ def validCrss(stdCrss, courses):
 # Valid GPA ckecker
 
 
+def validGpaBool(gpa):
+    for i in gpa:
+        if i not in "1234567890.":
+            return False
+    if not (float(gpa) <= 4.0 and float(gpa) >= 0.0):
+        # print("Enter Valid GPA")
+        return False
+    return True
+
+
 def validGPA(gpa):
-    if not (gpa <= 4 and gpa >= 0):
+    for i in gpa:
+        if i not in "1234567890.":
+            raise ValueError("Type a valid error")
+    if not (float(gpa) <= 4.0 and float(gpa) >= 0.0):
         # print("Enter Valid GPA")
         raise ValueError("Type a valid error")
+    return True
 # Valid Group
 
 
@@ -91,6 +106,16 @@ def saveF():
     dataFrame = DataFrame(dict)
     dataFrame.to_csv('./studentsT.csv', index=False)
 # Add student
+
+
+def crsCodeByName(crsName):
+    ind = courses_list.index(crsName)
+    return code_list[ind]
+
+
+def crsNameByCode(crsCode):
+    ind = code_list.index(crsCode)
+    return courses_list[ind]
 
 
 def addStd(name, coursesId, gpa, group, level, passwd):
@@ -201,6 +226,13 @@ def editStd(id, t, val):
             print("Enter a valid Courses' Code")
             return
         stdCoursesId[ind] = val
+    elif t == 'ca':
+        stdCoursesId[ind] += ":" + val
+    elif t == 'cr':
+        arr = stdCoursesId[ind].split(":")
+        for i in val:
+            arr.pop(arr.index(i))
+        stdCoursesId[ind] = ":".join(arr)
     # Edit GPA
     elif t == 'g' or t == 'gpa':
         try:
@@ -239,17 +271,15 @@ def editStd(id, t, val):
 
 
 def addPost(postStr):
-    thisDate = datetime.today().strftime('%y%m%d')
-    print(thisDate)
+    thisDate = datetime.today().strftime('%y-%m-%d')
     postsStrs.append(postStr)
-    postsDates.append(thisDate)
+    postsDates.append(int(thisDate))
     dict = {'date': postsDates,
             'post': postsStrs}
     dataFrame = DataFrame(dict)
-    dataFrame.to_csv('./news.csv', index=False)
+    dataFrame.to_csv('./news.csv', index=False, quoting=csv.QUOTE_NONNUMERIC)
 
 
-addPost("WE HAVE FINISHED THE COOOOOOODDDDDEEE")
 #
 #
 #
@@ -257,6 +287,15 @@ addPost("WE HAVE FINISHED THE COOOOOOODDDDDEEE")
 # Marwan's code
 #
 # Course code valid
+
+
+def avaliableCrss4Std(id):
+    arrStdCrss = getStd(id, 'c')
+    avaliableCrss = []
+    for crs in code_list:
+        if crs not in arrStdCrss:
+            avaliableCrss.append(crsNameByCode(crs))
+    return avaliableCrss
 
 
 def crsCodeFound(removed_code, code_list):
@@ -267,12 +306,26 @@ def crsCodeFound(removed_code, code_list):
 # A course code is 3 letters
 
 
+def validCrsCodeBool(new_code, code_list):
+    if len(new_code) < 3 or new_code in code_list or not new_code.isalnum():
+        return False
+    else:
+        return True
+
+
 def validCrsCode(new_code, code_list):
-    if len(new_code) > 3 or new_code in code_list or not new_code.isalnum():
+    if len(new_code) < 3 or new_code in code_list or not new_code.isalnum():
         raise ValueError("")
     else:
         return True
 # A course code is inavaliable in the courses table
+
+
+def validCrsNameBool(new_course, courses_list):
+    if (new_course in courses_list) or not new_course.isalnum():
+        return False
+    else:
+        return True
 
 
 def validCrsName(new_course, courses_list):
