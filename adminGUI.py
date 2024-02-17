@@ -258,7 +258,7 @@ def onAddStdBtn():
 
 
 addStdbutton = Button(
-    addStudentFrame, text="Get Selected", command=onAddStdBtn)
+    addStudentFrame, text="Add Student", command=onAddStdBtn)
 addStdbutton.grid(row=6, column=3)
 addStdCaseLabel = Label(addStudentFrame, text="")
 addStdCaseLabel.grid(row=7, column=1, columnspan=2)
