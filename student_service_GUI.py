@@ -18,7 +18,6 @@ def student_service():
     main_page1.grid_forget()
     login_panel.grid(row=0, column=0, padx=10, pady=10)
     # Show page for choice 2
-    
 # def control_service():
 #     # Hide the main page
 #     main_page1.grid_forget()
